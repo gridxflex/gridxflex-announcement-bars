@@ -1,0 +1,1177 @@
+/**
+ * Gridxflex Announcement Bars with CTA — Admin Styles
+ * v1.0.0 
+ */
+
+:root {
+  --gabc-blue: #2271b1;
+  --gabc-blue-dark: #135e96;
+  --gabc-blue-light: #f0f6fc;
+  --gabc-green: #00a32a;
+  --gabc-red: #d63638;
+  --gabc-border: #dcdcde;
+  --gabc-border-dark: #c3c4c7;
+  --gabc-bg: #f6f7f7;
+  --gabc-surface: #ffffff;
+  --gabc-text: #1d2327;
+  --gabc-text-muted: #646970;
+  --gabc-radius: 6px;
+  --gabc-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --gabc-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --gabc-transition: 150ms ease;
+}
+
+/* ============================================================
+   Page wrapper
+   ============================================================ */
+.gabc-admin {
+  margin: 20px 0 40px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 99%;
+}
+
+.gabc-admin h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gabc-text);
+  margin: 0 0 16px;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   Two-column layout: main content + sidebar
+   ============================================================ */
+.gabc-admin-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding-right: 10px;
+}
+
+.gabc-admin-main {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.gabc-admin-sidebar {
+  flex: 0 0 260px;
+  width: 260px;
+}
+
+/* ============================================================
+   Form container
+   ============================================================ */
+.gabc-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--gabc-border);
+  border: 1px solid var(--gabc-border);
+  border-radius: var(--gabc-radius);
+  overflow: hidden;
+  box-shadow: var(--gabc-shadow);
+}
+
+.gabc-form-section {
+  background: var(--gabc-surface);
+  padding: 24px 28px 20px;
+}
+
+.gabc-form-section:last-child {
+  padding-bottom: 24px;
+}
+
+.gabc-form-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 0 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--gabc-text);
+  letter-spacing: -0.01em;
+  border-bottom: 1px solid var(--gabc-border);
+  position: relative;
+}
+
+.gabc-form-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--gabc-blue);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Form table
+   ============================================================ */
+.form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.form-table tbody {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.form-table tr {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f1;
+}
+
+.form-table tr:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.form-table tr:first-child {
+  padding-top: 0;
+}
+
+.form-table th {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  text-align: left;
+  width: auto;
+}
+
+.form-table th label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gabc-text);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.form-table td {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+}
+
+.form-table input[type="text"],
+.form-table input[type="url"],
+.form-table input[type="number"],
+.form-table input[type="datetime-local"],
+.form-table textarea,
+.form-table select {
+  display: block;
+  border: 1px solid var(--gabc-border-dark);
+  border-radius: var(--gabc-radius);
+  padding: 8px 12px;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--gabc-text);
+  background: var(--gabc-surface);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition:
+    border-color var(--gabc-transition),
+    box-shadow var(--gabc-transition);
+  line-height: 1.4;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.form-table input[type="number"] {
+  max-width: 90px;
+}
+
+.form-table textarea {
+  min-height: 90px;
+  resize: vertical;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.8rem;
+  max-width: 100%;
+}
+
+.form-table select {
+  max-width: 260px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23646970' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-table input[type="text"]:focus,
+.form-table input[type="url"]:focus,
+.form-table input[type="number"]:focus,
+.form-table input[type="datetime-local"]:focus,
+.form-table textarea:focus,
+.form-table select:focus {
+  border-color: var(--gabc-blue);
+  box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.15);
+  outline: none;
+}
+
+/* Checkbox rows */
+.form-table tr:has(input[type="checkbox"]) th {
+  padding-top: 2px;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gabc-blue);
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  top: 1px;
+}
+
+/* Single checkbox + description inline */
+.form-table td:has(> input[type="checkbox"]:first-child) {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-table .description {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--gabc-text-muted);
+  line-height: 1.5;
+  margin: 0;
+  font-style: normal;
+}
+
+/* ============================================================
+   Checkbox list (User Roles, Post Types, Pages, etc.)
+   Vertical stack, checkbox and label text aligned.
+   ============================================================ */
+.gabc-checkbox-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  align-items: flex-start !important;
+}
+
+.gabc-checkbox-list label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 0.8125rem;
+  color: var(--gabc-text);
+  cursor: pointer;
+  line-height: 1.4;
+  white-space: nowrap;
+  padding: 2px 0;
+}
+
+.gabc-checkbox-list label:hover {
+  color: var(--gabc-blue);
+}
+
+.gabc-checkbox-list label input[type="checkbox"] {
+  top: 0;
+  flex-shrink: 0;
+}
+
+.gabc-checkbox-list .description {
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Color pickers & gradient
+   ============================================================ */
+.gabc-color-picker {
+  max-width: 140px !important;
+  width: 140px !important;
+}
+
+.wp-picker-container .wp-color-result.button {
+  border-radius: var(--gabc-radius) !important;
+}
+
+.gabc-color-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gabc-mode-toggle {
+  display: inline-flex;
+  background: var(--gabc-bg);
+  border: 1px solid var(--gabc-border-dark);
+  border-radius: 20px;
+  padding: 2px;
+  gap: 2px;
+  width: fit-content;
+}
+
+.gabc-mode-btn {
+  padding: 4px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--gabc-text-muted);
+  transition:
+    background var(--gabc-transition),
+    color var(--gabc-transition);
+  line-height: 1.5;
+}
+
+.gabc-mode-btn.is-active {
+  background: var(--gabc-surface);
+  color: var(--gabc-blue);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.gabc-mode-btn:hover:not(.is-active) {
+  color: var(--gabc-text);
+}
+
+.gabc-gradient-stops {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gabc-gradient-stop {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gabc-gradient-stop span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--gabc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gabc-gradient-arrow {
+  font-size: 1rem;
+  color: var(--gabc-text-muted);
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+
+.gabc-angle-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gabc-angle-wrap span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--gabc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gabc-angle-input {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gabc-angle-input input[type="number"] {
+  width: 64px !important;
+  max-width: 64px !important;
+  text-align: center;
+}
+
+.gabc-angle-input em {
+  font-style: normal;
+  font-size: 0.8125rem;
+  color: var(--gabc-text-muted);
+}
+
+.gabc-gradient-preview {
+  width: 100%;
+  max-width: 260px;
+  height: 32px;
+  border-radius: var(--gabc-radius);
+  border: 1px solid var(--gabc-border-dark);
+  transition: background 0.2s ease;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Form actions bar
+   ============================================================ */
+.gabc-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 28px;
+  background: var(--gabc-bg);
+  border-top: 1px solid var(--gabc-border);
+  margin-top: 2px;
+  border-bottom-left-radius: var(--gabc-radius);
+  border-bottom-right-radius: var(--gabc-radius);
+}
+
+.gabc-form-actions .button-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gabc-blue);
+  border: 1px solid var(--gabc-blue-dark);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 9px 24px;
+  border-radius: var(--gabc-radius);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition:
+    background var(--gabc-transition),
+    box-shadow var(--gabc-transition),
+    transform var(--gabc-transition);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.gabc-form-actions .button-primary:hover {
+  background: var(--gabc-blue-dark);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.gabc-form-actions .button-primary:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.gabc-form-actions .button-primary:focus-visible {
+  outline: 2px solid var(--gabc-blue);
+  outline-offset: 2px;
+}
+
+.gabc-form-actions .button-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ============================================================
+   Toggle switch (list page status)
+   ============================================================ */
+.gabc-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.gabc-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.gabc-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.gabc-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.gabc-toggle input:checked + .gabc-toggle-slider {
+  background-color: var(--gabc-blue);
+}
+
+.gabc-toggle input:checked + .gabc-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* ============================================================
+   List table — base styles
+   ============================================================ */
+.gabc-notices-table {
+  table-layout: auto; /* Let columns breathe */
+}
+
+.gabc-notices-table th,
+.gabc-notices-table td {
+  vertical-align: middle;
+}
+
+/* Wrap the table in a scroll container so it never breaks the layout */
+.gabc-table-wrap {
+  width: 100%;
+  /* overflow-x: auto; */
+  -webkit-overflow-scrolling: touch;
+}
+
+.gabc-actions-cell {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.gabc-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all var(--gabc-transition);
+  position: relative;
+  color: var(--gabc-text-muted);
+  text-decoration: none;
+  padding: 0;
+}
+
+.gabc-action-btn .dashicons {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.gabc-action-btn:hover {
+  background: var(--gabc-bg);
+  color: var(--gabc-blue);
+  transform: translateY(-1px);
+}
+
+.gabc-action-btn.gabc-delete:hover {
+  background: #fff5f5;
+  color: var(--gabc-red);
+}
+
+.gabc-action-btn:active {
+  transform: translateY(0);
+}
+
+.gabc-action-btn::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: var(--gabc-text);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--gabc-transition);
+  margin-bottom: 4px;
+  z-index: 1000;
+}
+
+.gabc-action-btn:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+   Author / sidebar box
+   ============================================================ */
+.gabc-author-box {
+  background: var(--gabc-surface);
+  border: 1px solid var(--gabc-border);
+  border-radius: var(--gabc-radius);
+  padding: 16px;
+  box-shadow: var(--gabc-shadow);
+}
+
+.gabc-author-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gabc-author-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gabc-blue-light);
+  color: var(--gabc-blue);
+  font-size: 32px !important;
+}
+
+.gabc-author-info h3 {
+  margin: 0 0 3px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--gabc-text);
+}
+
+.gabc-author-info p {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--gabc-text-muted);
+}
+
+.gabc-author-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gabc-author-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: var(--gabc-bg);
+  color: var(--gabc-text);
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  transition:
+    background var(--gabc-transition),
+    color var(--gabc-transition);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.gabc-author-link:hover {
+  background: var(--gabc-blue-light);
+  color: var(--gabc-blue);
+}
+
+.gabc-author-link .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+/* On medium screens, keep sidebar narrow */
+@media (max-width: 1100px) {
+  .gabc-admin-sidebar {
+    flex: 0 0 200px;
+    width: 200px;
+  }
+}
+
+/* On small screens, the sidebar already goes full-width */
+@media (max-width: 782px) {
+  .gabc-author-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .gabc-author-header {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  .gabc-author-links {
+    flex: 2;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .gabc-author-link {
+    width: auto;
+  }
+}
+/* ============================================================
+   Admin notices
+   ============================================================ */
+.gabc-admin .notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-left-width: 4px;
+  border-radius: 0 var(--gabc-radius) var(--gabc-radius) 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.gabc-admin .notice-success {
+  border-left-color: var(--gabc-green);
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.gabc-admin .notice-error {
+  border-left-color: var(--gabc-red);
+  background: #fff5f5;
+  color: #7f1d1d;
+}
+
+.gabc-admin .notice p {
+  margin: 0;
+  flex: 1;
+}
+
+.gabc-admin .notice-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 2px;
+  line-height: 1;
+  transition: opacity var(--gabc-transition);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.gabc-admin .notice-dismiss:hover {
+  opacity: 1;
+}
+
+.gabc-input-unit-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gabc-unit {
+  font-size: 0.8125rem;
+  color: var(--gabc-text-muted);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+/* Collapse sidebar below main at medium screens */
+@media (max-width: 1100px) {
+  .gabc-admin-sidebar {
+    flex: 0 0 220px;
+    width: 220px;
+  }
+}
+
+@media (max-width: 900px) {
+  .gabc-admin-layout {
+    flex-direction: column;
+  }
+
+  .gabc-admin-sidebar {
+    width: 100%;
+    flex: none;
+  }
+
+  .gabc-author-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .gabc-author-link {
+    width: auto;
+  }
+}
+
+@media (max-width: 782px) {
+  .gabc-form-section {
+    padding: 18px 16px 16px;
+  }
+
+  /* Stack label above field on small screens */
+  .form-table tr {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 0;
+  }
+
+  .form-table input[type="text"],
+  .form-table input[type="url"],
+  .form-table input[type="datetime-local"],
+  .form-table select {
+    max-width: 100%;
+  }
+
+  .form-table textarea {
+    max-width: 100%;
+  }
+
+  .gabc-form-actions {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+  }
+
+  .gabc-admin h1 {
+    font-size: 1.25rem;
+  }
+
+  /* Checkbox + description: always wrap below checkbox on small screens */
+  .form-table td:has(> input[type="checkbox"]:first-child) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gabc-gradient-stops {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gabc-gradient-arrow {
+    transform: rotate(90deg);
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .gabc-form-section {
+    padding: 14px 12px 12px;
+  }
+
+  .gabc-author-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gabc-author-links {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   List table — responsive tiers
+   ============================================================ */
+
+/*
+ * Tier 1 — Medium screens (≤ 960px)
+ * Hide Priority; compact stat columns; let Schedule truncate.
+ */
+@media (max-width: 960px) {
+  .gabc-col-priority {
+    display: none;
+  }
+
+  .gabc-col-stat {
+    width: 64px;
+  }
+
+  .gabc-col-schedule {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+}
+
+/*
+ * Tier 2 — Small screens (≤ 782px)
+ * Full card layout. thead is hidden; every td becomes a labeled
+ * block using data-label + ::before. Actions row spans full width.
+ *
+ * WordPress collapses its admin menu at 782px so the full content
+ * width is available — this is the natural WP mobile breakpoint.
+ */
+@media (max-width: 782px) {
+  /* Scroll wrapper not needed in card mode */
+  .gabc-table-wrap {
+    overflow-x: visible;
+  }
+
+  /* Reset WP widefat table to block model */
+  .gabc-notices-table,
+  .gabc-notices-table tbody,
+  .gabc-notices-table tr,
+  .gabc-notices-table td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Hide the header row visually but keep it accessible */
+  .gabc-notices-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Each row becomes a card */
+  .gabc-notices-table tbody tr {
+    border: 1px solid var(--gabc-border);
+    border-radius: var(--gabc-radius);
+    margin-bottom: 12px;
+    background: var(--gabc-surface);
+    box-shadow: var(--gabc-shadow);
+    overflow: hidden;
+  }
+
+  /* Zebra striping via WP .striped — override to solid in card mode */
+  .gabc-notices-table.striped > tbody > tr:nth-child(odd) td,
+  .gabc-notices-table.striped > tbody > tr:nth-child(even) td {
+    background: transparent;
+  }
+
+  /* Each cell: label on the left, value on the right */
+  .gabc-notices-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gabc-border);
+    text-align: right;
+    box-sizing: border-box;
+  }
+
+  .gabc-notices-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* Inject the column label from data-label */
+  .gabc-notices-table td[data-label]::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gabc-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  /* Hidden columns in Tier 1 stay hidden in Tier 2 too */
+  .gabc-col-priority {
+    display: none;
+  }
+
+  /* Stat columns: restore auto width in block context */
+  .gabc-col-stat {
+    width: auto;
+    text-align: right !important;
+  }
+
+  /* Schedule: no truncation needed in card layout */
+  .gabc-col-schedule {
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* Actions row: full-width flex row, centered, no label */
+  .gabc-actions-cell {
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 10px 14px;
+  }
+
+  .gabc-actions-cell::before {
+    content: none !important;
+  }
+
+  /* Make action buttons slightly larger for touch targets */
+  .gabc-action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Toggle: left-align in its flex row */
+  .gabc-toggle {
+    margin-left: auto;
+  }
+
+  /* Empty state cell */
+  .gabc-notices-table td[colspan] {
+    justify-content: center;
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .gabc-notices-table td[colspan]::before {
+    content: none;
+  }
+}
+
+/*
+ * Tier 3 — Extra-small (≤ 480px)
+ * Tighten card padding.
+ */
+@media (max-width: 480px) {
+  .gabc-notices-table td {
+    padding: 9px 12px;
+    font-size: 0.8125rem;
+  }
+
+  .gabc-actions-cell {
+    padding: 9px 12px;
+  }
+}
+
+/* ============================================================
+   Analytics — stat badges (list table + analytics page)
+   ============================================================ */
+
+.gabc-col-stat {
+  text-align: center !important;
+  width: 80px;
+}
+
+.gabc-stat-badge {
+  display: inline-block;
+  min-width: 36px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.gabc-stat-views {
+  background: #e8f0fe;
+  color: #1a56db;
+}
+
+.gabc-stat-clicks {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.gabc-stat-ctr {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* Notice ID badge used on analytics page */
+.gabc-notice-id-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--gabc-bg);
+  color: var(--gabc-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  vertical-align: middle;
+  border: 1px solid var(--gabc-border);
+}
+
+/* ============================================================
+   Analytics — chart wrapper
+   ============================================================ */
+
+.gabc-chart-wrap {
+  margin-top: 24px;
+  padding: 20px 20px 12px;
+  background: var(--gabc-surface);
+  border: 1px solid var(--gabc-border);
+  border-radius: var(--gabc-radius);
+  box-shadow: var(--gabc-shadow);
+}
+
+.gabc-chart-wrap h3 {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gabc-text);
+}
+
+.gabc-chart-svg-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.gabc-chart-svg-wrap svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pb-1 {
+  padding-bottom: 4px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+/* ============================================================
+   Analytics — on-demand chart panel & compare mode
+   ============================================================ */
+
+.gabc-analytics-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.gabc-analytics-toolbar .description {
+  font-style: italic;
+}
+
+/* Active table row highlight when chart is open */
+#gabc-analytics-table tr.gabc-row-active td {
+  background: var(--gabc-blue-light) !important;
+}
+
+/* Chart panel header: title + close button side by side */
+.gabc-chart-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.gabc-chart-panel-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gabc-text);
+}

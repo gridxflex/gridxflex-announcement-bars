@@ -1,0 +1,490 @@
+/**
+ * Gridxflex Announcement Bars with CTA - Frontend Styles
+ * v1.0.0 
+ */
+
+:root {
+  --gabc-bg-color: #f0f0f0;
+  --gabc-text-color: #333333;
+  --gabc-button-color: #007bff;
+  --gabc-padding: 15px;
+  --gabc-font-size: 16px;
+}
+
+.gabc-notice-bar {
+  width: 100%;
+  background-color: var(--gabc-bg-color);
+  color: var(--gabc-text-color);
+  font-size: var(--gabc-font-size);
+  padding: var(--gabc-padding) 0;
+  box-sizing: border-box;
+  line-height: 1.6;
+  z-index: 9999;
+  left: 0;
+  right: 0;
+  transition:
+    top 0.2s ease,
+    bottom 0.2s ease,
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.gabc-notice-bar[data-sticky="true"] {
+  position: fixed;
+}
+
+/* Non-sticky top: renders inline in page flow, pushes content down */
+.gabc-notice-bar[data-sticky="false"][data-position="top"] {
+  position: relative;
+  margin-bottom: 0;
+}
+
+/* Non-sticky bottom: fixed at the bottom edge — but JS skips body-padding
+   for these bars so content is NOT pushed. Visually equivalent to "doesn't
+   follow scroll" but still anchored at the viewport bottom. */
+.gabc-notice-bar[data-sticky="false"][data-position="bottom"] {
+  position: fixed;
+  margin-bottom: 0;
+}
+
+.gabc-notice-bar[data-position="top"] {
+  top: 0;
+}
+
+.gabc-notice-bar[data-position="bottom"] {
+  bottom: 0;
+}
+
+/* ─── Trigger: hidden state (before trigger fires) ──────────────────────── */
+
+.gabc-notice-bar.gabc-trigger-hidden {
+  opacity: 0;
+  pointer-events: none;
+  /* Slide in from correct edge when revealed */
+}
+
+.gabc-notice-bar.gabc-trigger-hidden[data-position="top"] {
+  transform: translateY(-100%);
+}
+
+.gabc-notice-bar.gabc-trigger-hidden[data-position="bottom"] {
+  transform: translateY(100%);
+}
+
+/* ─── Trigger: visible state (after trigger fires) ──────────────────────── */
+
+.gabc-notice-bar.gabc-trigger-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ─── Body padding ──────────────────────────────────────────────────────── */
+
+body.gabc-has-top-bar {
+  padding-top: var(--gabc-top-bar-height, 0px);
+}
+
+body.gabc-has-bottom-bar {
+  padding-bottom: var(--gabc-bottom-bar-height, 0px);
+}
+
+body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
+    top: 46px;
+  }
+}
+
+/* ─── Inner layout ──────────────────────────────────────────────────────── */
+
+.gabc-notice-bar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gabc-padding);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gabc-notice-bar__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.gabc-notice-bar__text {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ─── CTA Button ─────────────────────────────────────────────────────────── */
+
+.gabc-notice-bar__button {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: var(--gabc-button-color);
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95em;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.gabc-notice-bar__button:hover {
+  opacity: 0.85;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.gabc-notice-bar__button:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.2);
+  outline-offset: 2px;
+}
+
+/* ─── Close button ──────────────────────────────────────────────────────── */
+
+.gabc-notice-bar__close {
+  flex: 0 0 auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gabc-text-color);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.gabc-notice-bar__close:hover {
+  opacity: 1;
+}
+
+.gabc-notice-bar__close:focus {
+  outline: 2px solid rgba(0, 0, 0, 0.2);
+  outline-offset: 2px;
+}
+
+.gabc-notice-bar__close-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .gabc-notice-bar__inner {
+    padding: 0 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .gabc-notice-bar__content {
+    flex: 1 1 60%;
+    min-width: 0;
+    order: 1;
+  }
+
+  .gabc-notice-bar__button {
+    flex: 0 0 auto;
+    order: 2;
+  }
+
+  .gabc-notice-bar__close {
+    order: 3;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --gabc-padding: 12px;
+    --gabc-font-size: 14px;
+  }
+
+  .gabc-notice-bar__inner {
+    flex-wrap: wrap;
+    padding-right: 44px;
+    position: relative;
+    gap: 8px;
+  }
+
+  .gabc-notice-bar__content {
+    flex: 1 1 100%;
+    order: 1;
+    min-width: 0;
+  }
+
+  .gabc-notice-bar__button {
+    flex: 1 1 auto;
+    order: 2;
+    text-align: center;
+    min-width: 0;
+    max-width: 260px;
+  }
+
+  .gabc-notice-bar__close {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    order: 3;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .gabc-notice-bar__button,
+  .gabc-notice-bar__close,
+  .gabc-notice-bar {
+    transition: none;
+  }
+  /* Still reveal the bar, just without animation */
+  .gabc-notice-bar.gabc-trigger-hidden {
+    transform: none;
+  }
+}
+
+/* ─── Dismiss animations ─────────────────────────────────────────────────── */
+
+@keyframes gabcSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.gabc-notice-bar.gabc-sliding-out {
+  animation: gabcSlideOut 0.3s ease-out forwards;
+}
+
+.gabc-notice-bar[data-position="bottom"].gabc-sliding-out {
+  animation: gabcSlideOutBottom 0.3s ease-out forwards;
+}
+
+@keyframes gabcSlideOutBottom {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+/* ─── Entrance animation keyframes ──────────────────────────────────────── */
+
+@keyframes gabc-kf-slide-top {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes gabc-kf-slide-bottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes gabc-kf-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gabc-kf-reveal-top {
+  from {
+    transform: scaleY(0);
+    opacity: 0.6;
+    transform-origin: top center;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: top center;
+  }
+}
+
+@keyframes gabc-kf-reveal-bottom {
+  from {
+    transform: scaleY(0);
+    opacity: 0.6;
+    transform-origin: bottom center;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: bottom center;
+  }
+}
+
+@keyframes gabc-kf-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  65% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gabc-kf-bounce-top {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(6%);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-3%);
+  }
+  90% {
+    transform: translateY(2%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes gabc-kf-bounce-bottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  55% {
+    transform: translateY(-6%);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(3%);
+  }
+  90% {
+    transform: translateY(-2%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes gabc-kf-flip {
+  from {
+    transform: perspective(600px) rotateX(-80deg);
+    opacity: 0;
+    transform-origin: top center;
+  }
+  to {
+    transform: perspective(600px) rotateX(0deg);
+    opacity: 1;
+    transform-origin: top center;
+  }
+}
+
+@keyframes gabc-kf-flip-bottom {
+  from {
+    transform: perspective(600px) rotateX(80deg);
+    opacity: 0;
+    transform-origin: bottom center;
+  }
+  to {
+    transform: perspective(600px) rotateX(0deg);
+    opacity: 1;
+    transform-origin: bottom center;
+  }
+}
+
+/* ─── Pre-animation hidden state ─────────────────────────────────────────── */
+
+.gabc-notice-bar.gabc-anim-ready {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Suppress transform/opacity transitions during CSS animation ────────── */
+
+.gabc-notice-bar.gabc-entrance {
+  transition:
+    top 0.2s ease,
+    bottom 0.2s ease !important;
+}
+
+/* Animation Styles */
+.gabc-notice-bar.gabc-entrance[data-animation="slide"][data-position="top"] {
+  animation: gabc-kf-slide-top 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="slide"][data-position="bottom"] {
+  animation: gabc-kf-slide-bottom 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="fade"] {
+  animation: gabc-kf-fade 400ms ease forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="reveal"][data-position="top"] {
+  animation: gabc-kf-reveal-top 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="reveal"][data-position="bottom"] {
+  animation: gabc-kf-reveal-bottom 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="pop"] {
+  animation: gabc-kf-pop 400ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="bounce"][data-position="top"] {
+  animation: gabc-kf-bounce-top 400ms ease forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="bounce"][data-position="bottom"] {
+  animation: gabc-kf-bounce-bottom 400ms ease forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="flip"][data-position="top"] {
+  animation: gabc-kf-flip 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.gabc-notice-bar.gabc-entrance[data-animation="flip"][data-position="bottom"] {
+  animation: gabc-kf-flip-bottom 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    forwards;
+}
+
+/* Reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .gabc-notice-bar.gabc-entrance[data-animation] {
+    animation: gabc-kf-fade 300ms ease forwards !important;
+  }
+}
