@@ -1,12 +1,17 @@
 /**
  * Gridxflex Announcement Bars with CTA - Frontend Styles
- * v1.0.0 
+ * v1.1.0
  */
 
 :root {
   --gabc-bg-color: #f0f0f0;
   --gabc-text-color: #333333;
   --gabc-button-color: #007bff;
+  --gabc-button-text-color: #ffffff;
+  --gabc-button-border-radius: 4px;
+  --gabc-button-padding: 8px 20px;
+  --gabc-text-align: left;
+  --gabc-font-weight: normal;
   --gabc-padding: 15px;
   --gabc-font-size: 16px;
 }
@@ -113,6 +118,7 @@ body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
 .gabc-notice-bar__content {
   flex: 1 1 auto;
   min-width: 0;
+  text-align: var(--gabc-text-align);
 }
 
 .gabc-notice-bar__text {
@@ -121,6 +127,8 @@ body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
   color: inherit;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-align: var(--gabc-text-align);
+  font-weight: var(--gabc-font-weight);
 }
 
 /* ─── CTA Button ─────────────────────────────────────────────────────────── */
@@ -128,11 +136,11 @@ body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
 .gabc-notice-bar__button {
   flex: 0 0 auto;
   display: inline-block;
-  padding: 8px 20px;
-  background-color: var(--gabc-button-color);
-  color: #ffffff;
+  padding: var(--gabc-button-padding);
+  background: var(--gabc-button-color);
+  color: var(--gabc-button-text-color);
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: var(--gabc-button-border-radius);
   font-weight: 500;
   font-size: 0.95em;
   border: none;
@@ -143,7 +151,7 @@ body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
 
 .gabc-notice-bar__button:hover {
   opacity: 0.85;
-  color: #ffffff;
+  color: var(--gabc-button-text-color);
   text-decoration: none;
 }
 
@@ -486,5 +494,94 @@ body.admin-bar .gabc-notice-bar[data-position="top"][data-sticky="true"] {
 @media (prefers-reduced-motion: reduce) {
   .gabc-notice-bar.gabc-entrance[data-animation] {
     animation: gabc-kf-fade 300ms ease forwards !important;
+  }
+}
+/* ─── v1.1.0: Mobile layout modes ───────────────────────────────────────── */
+
+/* mobile_layout: row — force side-by-side on all screen sizes */
+@media (max-width: 768px) {
+  .gabc-notice-bar[data-mobile-layout="row"] .gabc-notice-bar__inner {
+    flex-wrap: nowrap !important;
+    align-items: center;
+  }
+
+  .gabc-notice-bar[data-mobile-layout="row"] .gabc-notice-bar__content {
+    flex: 1 1 auto;
+    min-width: 0;
+    order: 1;
+  }
+
+  .gabc-notice-bar[data-mobile-layout="row"] .gabc-notice-bar__button {
+    flex: 0 0 auto;
+    order: 2;
+    white-space: nowrap;
+  }
+
+  .gabc-notice-bar[data-mobile-layout="row"] .gabc-notice-bar__close {
+    order: 3;
+    flex-shrink: 0;
+    margin-left: 4px;
+  }
+
+  /* mobile_layout: column — force stacked layout */
+  .gabc-notice-bar[data-mobile-layout="column"] .gabc-notice-bar__inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-right: 44px;
+    position: relative;
+  }
+
+  .gabc-notice-bar[data-mobile-layout="column"] .gabc-notice-bar__content {
+    flex: 1 1 100% !important;
+    order: 1;
+    width: 100%;
+    text-align: var(--gabc-text-align);
+  }
+
+  .gabc-notice-bar[data-mobile-layout="column"] .gabc-notice-bar__button {
+    flex: 0 0 auto !important;
+    order: 2;
+    align-self: flex-start;
+    max-width: none;
+    text-align: center;
+  }
+
+  .gabc-notice-bar[data-mobile-layout="column"] .gabc-notice-bar__close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    order: 3;
+  }
+}
+
+/* Mobile font-size override — only active when --gabc-mobile-font-size is set inline */
+@media (max-width: 768px) {
+  .gabc-notice-bar[style*="--gabc-mobile-font-size"] {
+    font-size: var(--gabc-mobile-font-size) !important;
+  }
+
+  .gabc-notice-bar[style*="--gabc-mobile-padding"] {
+    padding-top: var(--gabc-mobile-padding) !important;
+    padding-bottom: var(--gabc-mobile-padding) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .gabc-notice-bar[style*="--gabc-mobile-font-size"] {
+    font-size: var(--gabc-mobile-font-size) !important;
+  }
+
+  .gabc-notice-bar[style*="--gabc-mobile-padding"] {
+    padding-top: var(--gabc-mobile-padding) !important;
+    padding-bottom: var(--gabc-mobile-padding) !important;
+  }
+
+  /* row layout: compact button on xs */
+  .gabc-notice-bar[data-mobile-layout="row"] .gabc-notice-bar__button {
+    padding: 6px 12px;
+    font-size: 0.875em;
   }
 }

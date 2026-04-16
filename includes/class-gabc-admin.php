@@ -122,7 +122,7 @@ class GABC_Admin {
 		$notices_ok  = false;
 		$analytics_ok = false;
 
-		if ( version_compare( $db_version, '1.0.0', '>=' ) ) {
+		if ( version_compare( $db_version, '1.1.0', '>=' ) ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$notices_ok = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . 'gabc_notices' ) );
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -131,6 +131,7 @@ class GABC_Admin {
 				return;
 			}
 		}
+		// Upgrading from 1.0.0 → 1.1.0: dbDelta will ADD new columns automatically.
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$sql = "CREATE TABLE {$wpdb->prefix}gabc_notices (
@@ -164,6 +165,15 @@ class GABC_Admin {
 			trigger_exit_intent tinyint(1) DEFAULT 0,
 			animation varchar(30) DEFAULT 'none',
 			animation_duration int(11) DEFAULT 400,
+			text_align varchar(10) DEFAULT 'left',
+			font_weight varchar(10) DEFAULT 'normal',
+			button_text_color varchar(20) DEFAULT '#ffffff',
+			button_border_radius int(11) DEFAULT 4,
+			button_padding_x int(11) DEFAULT 20,
+			button_padding_y int(11) DEFAULT 8,
+			mobile_font_size int(11) DEFAULT 0,
+			mobile_padding int(11) DEFAULT 0,
+			mobile_layout varchar(20) DEFAULT 'auto',
 			created_at datetime DEFAULT CURRENT_TIMESTAMP,
 			updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY  (id),
@@ -190,7 +200,7 @@ class GABC_Admin {
 		) $charset_collate;";
 		dbDelta( $analytics_sql );
 
-		update_option( 'gabc_db_version', '1.0.0' );
+		update_option( 'gabc_db_version', '1.1.0' );
 	}
 
 	/**
@@ -455,6 +465,15 @@ class GABC_Admin {
 		$trigger_exit_intent = $notice ? (int) ( $notice->trigger_exit_intent ?? 0 ) : 0;
 		$animation           = $notice ? (string) ( $notice->animation        ?? 'none' ) : 'none';
 		$animation_duration  = $notice ? (int) ( $notice->animation_duration ?? 400 ) : 400;
+		$text_align          = $notice ? (string) ( $notice->text_align          ?? 'left'     ) : 'left';
+		$font_weight         = $notice ? (string) ( $notice->font_weight         ?? 'normal'   ) : 'normal';
+		$button_text_color   = $notice ? (string) ( $notice->button_text_color   ?? '#ffffff'  ) : '#ffffff';
+		$button_border_radius = $notice ? (int)   ( $notice->button_border_radius ?? 4         ) : 4;
+		$button_padding_x    = $notice ? (int)    ( $notice->button_padding_x    ?? 20        ) : 20;
+		$button_padding_y    = $notice ? (int)    ( $notice->button_padding_y    ?? 8         ) : 8;
+		$mobile_font_size    = $notice ? (int)    ( $notice->mobile_font_size    ?? 0         ) : 0;
+		$mobile_padding      = $notice ? (int)    ( $notice->mobile_padding      ?? 0         ) : 0;
+		$mobile_layout       = $notice ? (string) ( $notice->mobile_layout       ?? 'auto'    ) : 'auto';
 
 		$pages      = get_pages();
 		$categories = get_categories( array( 'hide_empty' => false ) );
@@ -652,6 +671,69 @@ class GABC_Admin {
 										</tr>
 										<tr>
 											<th scope="row">
+												<label for="gabc_text_align"><?php esc_html_e( 'Text Alignment', 'gridxflex-announcement-bars' ); ?></label>
+											</th>
+											<td>
+												<select name="text_align" id="gabc_text_align">
+													<option value="left"   <?php selected( $text_align, 'left' );   ?>><?php esc_html_e( 'Left', 'gridxflex-announcement-bars' ); ?></option>
+													<option value="center" <?php selected( $text_align, 'center' ); ?>><?php esc_html_e( 'Center', 'gridxflex-announcement-bars' ); ?></option>
+													<option value="right"  <?php selected( $text_align, 'right' );  ?>><?php esc_html_e( 'Right', 'gridxflex-announcement-bars' ); ?></option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
+												<label for="gabc_font_weight"><?php esc_html_e( 'Font Weight', 'gridxflex-announcement-bars' ); ?></label>
+											</th>
+											<td>
+												<select name="font_weight" id="gabc_font_weight">
+													<option value="normal" <?php selected( $font_weight, 'normal' ); ?>><?php esc_html_e( 'Normal (400)', 'gridxflex-announcement-bars' ); ?></option>
+													<option value="500"    <?php selected( $font_weight, '500' );    ?>><?php esc_html_e( 'Medium (500)', 'gridxflex-announcement-bars' ); ?></option>
+													<option value="600"    <?php selected( $font_weight, '600' );    ?>><?php esc_html_e( 'Semi-Bold (600)', 'gridxflex-announcement-bars' ); ?></option>
+													<option value="700"    <?php selected( $font_weight, '700' );    ?>><?php esc_html_e( 'Bold (700)', 'gridxflex-announcement-bars' ); ?></option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
+												<label for="gabc_button_text_color"><?php esc_html_e( 'Button Text Color', 'gridxflex-announcement-bars' ); ?></label>
+											</th>
+											<td>
+												<input type="text" name="button_text_color" id="gabc_button_text_color" class="gabc-color-picker" value="<?php echo esc_attr( $button_text_color ); ?>" />
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
+												<label><?php esc_html_e( 'Button Padding (px)', 'gridxflex-announcement-bars' ); ?></label>
+											</th>
+											<td>
+												<div class="gabc-two-inputs">
+													<span class="gabc-input-unit-wrap">
+														<input type="number" name="button_padding_y" id="gabc_button_padding_y" value="<?php echo esc_attr( $button_padding_y ); ?>" min="0" max="60" step="1" />
+														<span class="gabc-unit">px ↕</span>
+													</span>
+													<span class="gabc-input-unit-wrap">
+														<input type="number" name="button_padding_x" id="gabc_button_padding_x" value="<?php echo esc_attr( $button_padding_x ); ?>" min="0" max="120" step="1" />
+														<span class="gabc-unit">px ↔</span>
+													</span>
+												</div>
+												<span class="description"><?php esc_html_e( 'Vertical (↕) and horizontal (↔) button padding.', 'gridxflex-announcement-bars' ); ?></span>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
+												<label for="gabc_button_border_radius"><?php esc_html_e( 'Button Border Radius', 'gridxflex-announcement-bars' ); ?></label>
+											</th>
+											<td>
+												<span class="gabc-input-unit-wrap">
+													<input type="number" name="button_border_radius" id="gabc_button_border_radius" value="<?php echo esc_attr( $button_border_radius ); ?>" min="0" max="50" step="1" />
+													<span class="gabc-unit">px</span>
+												</span>
+												<span class="description"><?php esc_html_e( '0 = square corners, 50 = pill shape.', 'gridxflex-announcement-bars' ); ?></span>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">
 												<label for="gabc_padding"><?php esc_html_e( 'Padding', 'gridxflex-announcement-bars' ); ?></label>
 											</th>
 											<td>
@@ -676,7 +758,53 @@ class GABC_Admin {
 								</table>
 							</div>
 
-							<!-- Visibility Settings -->
+							<!-- Responsive Settings -->
+						<div class="gabc-form-section">
+							<h2><?php esc_html_e( 'Responsive Settings', 'gridxflex-announcement-bars' ); ?></h2>
+							<table class="form-table" role="presentation">
+								<tbody>
+									<tr>
+										<th scope="row">
+											<label for="gabc_mobile_layout"><?php esc_html_e( 'Mobile Layout', 'gridxflex-announcement-bars' ); ?></label>
+										</th>
+										<td>
+											<select name="mobile_layout" id="gabc_mobile_layout">
+												<option value="auto"   <?php selected( $mobile_layout, 'auto' );   ?>><?php esc_html_e( 'Auto (default responsive)', 'gridxflex-announcement-bars' ); ?></option>
+												<option value="row"    <?php selected( $mobile_layout, 'row' );    ?>><?php esc_html_e( 'Always Row (text + button side by side)', 'gridxflex-announcement-bars' ); ?></option>
+												<option value="column" <?php selected( $mobile_layout, 'column' ); ?>><?php esc_html_e( 'Always Stack (text above button)', 'gridxflex-announcement-bars' ); ?></option>
+											</select>
+											<span class="description"><?php esc_html_e( 'Controls how content stacks on mobile screens (&lt; 768px).', 'gridxflex-announcement-bars' ); ?></span>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<label for="gabc_mobile_font_size"><?php esc_html_e( 'Mobile Font Size', 'gridxflex-announcement-bars' ); ?></label>
+										</th>
+										<td>
+											<span class="gabc-input-unit-wrap">
+												<input type="number" name="mobile_font_size" id="gabc_mobile_font_size" value="<?php echo esc_attr( $mobile_font_size ); ?>" min="0" max="30" step="1" />
+												<span class="gabc-unit">px</span>
+											</span>
+											<span class="description"><?php esc_html_e( 'Override font size on mobile (&lt; 768px). Set to 0 to use default.', 'gridxflex-announcement-bars' ); ?></span>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<label for="gabc_mobile_padding"><?php esc_html_e( 'Mobile Padding', 'gridxflex-announcement-bars' ); ?></label>
+										</th>
+										<td>
+											<span class="gabc-input-unit-wrap">
+												<input type="number" name="mobile_padding" id="gabc_mobile_padding" value="<?php echo esc_attr( $mobile_padding ); ?>" min="0" max="60" step="1" />
+												<span class="gabc-unit">px</span>
+											</span>
+											<span class="description"><?php esc_html_e( 'Override bar padding on mobile (&lt; 768px). Set to 0 to use default.', 'gridxflex-announcement-bars' ); ?></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- Visibility Settings -->
 							<div class="gabc-form-section">
 								<h2><?php esc_html_e( 'Visibility Settings', 'gridxflex-announcement-bars' ); ?></h2>
 								<table class="form-table" role="presentation">
@@ -917,6 +1045,15 @@ class GABC_Admin {
 			'trigger_exit_intent' => isset( $_POST['trigger_exit_intent'] ) ? 1                                       : 0,
 			'animation'           => isset( $_POST['animation'] )           ? sanitize_text_field( wp_unslash( $_POST['animation'] ) )                 : 'none',
 			'animation_duration'  => isset( $_POST['animation_duration'] ) ? absint( $_POST['animation_duration'] ) : 400,
+			'text_align'          => isset( $_POST['text_align'] )         ? sanitize_text_field( wp_unslash( $_POST['text_align'] ) )          : 'left',
+			'font_weight'         => isset( $_POST['font_weight'] )        ? sanitize_text_field( wp_unslash( $_POST['font_weight'] ) )         : 'normal',
+			'button_text_color'   => isset( $_POST['button_text_color'] )  ? sanitize_hex_color( wp_unslash( $_POST['button_text_color'] ) )   : '#ffffff',
+			'button_border_radius'=> isset( $_POST['button_border_radius'] ) ? absint( $_POST['button_border_radius'] )                        : 4,
+			'button_padding_x'    => isset( $_POST['button_padding_x'] )   ? absint( $_POST['button_padding_x'] )                              : 20,
+			'button_padding_y'    => isset( $_POST['button_padding_y'] )   ? absint( $_POST['button_padding_y'] )                              : 8,
+			'mobile_font_size'    => isset( $_POST['mobile_font_size'] )   ? absint( $_POST['mobile_font_size'] )                              : 0,
+			'mobile_padding'      => isset( $_POST['mobile_padding'] )     ? absint( $_POST['mobile_padding'] )                                : 0,
+			'mobile_layout'       => isset( $_POST['mobile_layout'] )      ? sanitize_text_field( wp_unslash( $_POST['mobile_layout'] ) )      : 'auto',
 		);
 
 		// Validate required fields.
@@ -934,7 +1071,9 @@ class GABC_Admin {
 			'%s', '%s', '%s', '%d', '%d',  // selected_tags, selected_post_types, user_roles, hide_logged_in, dismissible
 			'%s', '%s', '%d', '%d',        // start_date, end_date, priority, enabled
 			'%d', '%d', '%d',              // trigger_delay, trigger_scroll, trigger_exit_intent
-			'%s', '%d',   // animation, animation_duration
+			'%s', '%d',                    // animation, animation_duration
+			'%s', '%s', '%s', '%d', '%d', '%d', // text_align, font_weight, button_text_color, button_border_radius, button_padding_x, button_padding_y
+			'%d', '%d', '%s',              // mobile_font_size, mobile_padding, mobile_layout
 		);
 
 		if ( $notice_id ) {

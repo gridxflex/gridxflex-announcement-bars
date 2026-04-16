@@ -151,14 +151,40 @@ class GABC_Core {
 		$animation_duration  = isset( $notice->animation_duration ) ? absint( $notice->animation_duration ) : 400;
 		$has_animation = 'none' !== $animation;
 
+		// v1.1.0 — Typography & button design fields.
+		$text_align           = isset( $notice->text_align )           ? sanitize_text_field( $notice->text_align )           : 'left';
+		$font_weight          = isset( $notice->font_weight )          ? sanitize_text_field( $notice->font_weight )          : 'normal';
+		$button_text_color    = isset( $notice->button_text_color )    ? sanitize_hex_color( $notice->button_text_color )     : '#ffffff';
+		$button_border_radius = isset( $notice->button_border_radius ) ? absint( $notice->button_border_radius )              : 4;
+		$button_padding_x     = isset( $notice->button_padding_x )     ? absint( $notice->button_padding_x )                  : 20;
+		$button_padding_y     = isset( $notice->button_padding_y )     ? absint( $notice->button_padding_y )                  : 8;
+		$mobile_font_size     = isset( $notice->mobile_font_size )     ? absint( $notice->mobile_font_size )                  : 0;
+		$mobile_padding       = isset( $notice->mobile_padding )       ? absint( $notice->mobile_padding )                    : 0;
+		$mobile_layout        = isset( $notice->mobile_layout )        ? sanitize_text_field( $notice->mobile_layout )        : 'auto';
+
+		$btn_text_color_safe = $button_text_color ? $button_text_color : '#ffffff';
 		$styles = "
 		--gabc-bg-color: {$bg_color};
 		--gabc-text-color: {$text_color};
 		--gabc-button-color: {$button_color};
+		--gabc-button-text-color: {$btn_text_color_safe};
+		--gabc-button-border-radius: {$button_border_radius}px;
+		--gabc-button-padding: {$button_padding_y}px {$button_padding_x}px;
+		--gabc-text-align: {$text_align};
+		--gabc-font-weight: {$font_weight};
 		--gabc-padding: {$padding}px;
 		--gabc-font-size: {$font_size}px;
 		--gabc-anim-duration: {$animation_duration}ms;
 		";
+
+		// Inject mobile overrides only when explicitly set (> 0).
+		if ( $mobile_font_size > 0 ) {
+			$styles .= "--gabc-mobile-font-size: {$mobile_font_size}px;";
+		}
+		if ( $mobile_padding > 0 ) {
+			$styles .= "--gabc-mobile-padding: {$mobile_padding}px;";
+		}
+		$styles .= "--gabc-mobile-layout: {$mobile_layout};";
 
 		if ( strpos( $bg_color, 'linear-gradient' ) !== false ) {
 			$styles .= "background: {$bg_color};";
@@ -184,6 +210,7 @@ class GABC_Core {
 			data-trigger-exit-intent="<?php echo $trigger_exit_intent ? 'true' : 'false'; ?>"
 			data-animation="<?php echo esc_attr( $animation ); ?>"
 			data-animation-duration="<?php echo esc_attr( $animation_duration ); ?>"
+			data-mobile-layout="<?php echo esc_attr( $mobile_layout ); ?>"
 			style="<?php echo esc_attr( $styles ); ?>">
 			<div class="gabc-notice-bar__inner">
 				<div class="gabc-notice-bar__content">

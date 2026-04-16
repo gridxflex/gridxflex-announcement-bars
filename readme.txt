@@ -3,7 +3,7 @@ Contributors: gridxflex
 Tags: announcement bar, announcement bar, custom notice, dismissible, banner
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,19 @@ You can find support on the WordPress.org plugin support forum or contact the pl
 8. Mobile responsive view
 
 == Changelog ==
+
+= 1.1.0 =
+* New: Text Alignment control (left / center / right) per announcement bar
+* New: Font Weight control (normal / medium / semi-bold / bold) per announcement bar
+* New: Button Text Color picker — independent from button background color
+* New: Button Padding — separate vertical and horizontal padding controls
+* New: Button Border Radius — square to pill-shaped buttons
+* New: Responsive Settings section — Mobile Layout mode (auto / row / column)
+* New: Mobile Font Size override (0 = use default)
+* New: Mobile Padding override (0 = use default)
+* Improvement: Button color and text color now use CSS custom properties for instant theming
+* Improvement: Text alignment and font weight driven by CSS variables (no inline styles on text)
+* DB: Added 9 new columns to gabc_notices table (auto-migrated via dbDelta)
 
 = 1.0.0 - Initial Release =
 * Core functionality for customizable announcement bars

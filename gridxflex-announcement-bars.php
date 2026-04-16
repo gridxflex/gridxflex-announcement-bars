@@ -3,7 +3,7 @@
  * Plugin Name: Gridxflex Announcement Bars with CTA
  * Plugin URI: https://wordpress.org/plugins/gridxflex-announcement-bars/
  * Description: Lightweight, fully customizable announcement bar with display options and cookie-based dismissibility.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Grid X Flex
  * Author URI: https://github.com/gridxflex
  * License: GPL v2 or later
@@ -20,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'GABC_VERSION', '1.0.0' );
-define( 'GABC_DB_VERSION', '1.0.0' );
+define( 'GABC_VERSION', '1.1.0' );
+define( 'GABC_DB_VERSION', '1.1.0' );
 define( 'GABC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GABC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GABC_PLUGIN_FILE', __FILE__ );
@@ -81,6 +81,15 @@ function gabc_activate() {
 		trigger_exit_intent tinyint(1) DEFAULT 0,
 		animation varchar(30) DEFAULT 'none',
 		animation_duration int(11) DEFAULT 400,
+		text_align varchar(10) DEFAULT 'left',
+		font_weight varchar(10) DEFAULT 'normal',
+		button_text_color varchar(20) DEFAULT '#ffffff',
+		button_border_radius int(11) DEFAULT 4,
+		button_padding_x int(11) DEFAULT 20,
+		button_padding_y int(11) DEFAULT 8,
+		mobile_font_size int(11) DEFAULT 0,
+		mobile_padding int(11) DEFAULT 0,
+		mobile_layout varchar(20) DEFAULT 'auto',
 		created_at datetime DEFAULT CURRENT_TIMESTAMP,
 		updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 		PRIMARY KEY  (id),
@@ -187,6 +196,15 @@ function gabc_get_default_settings() {
 		'hide_logged_in'       => 0,
 		'dismissible'          => 1,
 		'selected_post_types'  => array(),
+		'text_align'           => 'left',
+		'font_weight'          => 'normal',
+		'button_text_color'    => '#ffffff',
+		'button_border_radius' => 4,
+		'button_padding_x'     => 20,
+		'button_padding_y'     => 8,
+		'mobile_font_size'     => 0,
+		'mobile_padding'       => 0,
+		'mobile_layout'        => 'auto',
 	);
 }
 

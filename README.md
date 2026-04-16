@@ -1,7 +1,7 @@
 # 🎯 Gridxflex Announcement Bars with CTA
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-1.1.0-blue?style=for-the-badge" alt="Version">
   <img src="https://img.shields.io/badge/WordPress-5.0%2B-0073AA?style=for-the-badge&logo=wordpress&logoColor=white" alt="WordPress">
   <img src="https://img.shields.io/badge/PHP-7.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/License-GPL%20v2-green?style=for-the-badge" alt="License">
@@ -30,6 +30,11 @@
 - **Padding & Font Size** — Adjustable spacing and typography
 - **Entrance Animation Style** — Slide, Fade, Reveal, Pop, Bounce, Flip or No Animation!
 - **Animation Duration** — Set how long the entrance animation takes (100ms–2000ms)
+- **Text Alignment** — Set notice text alignment to left, center, or right per bar
+- **Font Weight** — Control notice text weight (normal, medium, semi-bold, bold)
+- **Button Text Color** — Independent color picker for the button label
+- **Button Padding** — Separate vertical (↕) and horizontal (↔) padding controls
+- **Button Border Radius** — From square corners (0px) to pill shape (50px)
 
 ### 📍 Flexible Display Options
 
@@ -62,6 +67,12 @@
 
 - Click tracking for CTA button
 - View count tracking
+
+### 📐 Responsive Settings
+
+- **Mobile Layout** — Choose Auto (default responsive), Row (always side-by-side), or Column (always stacked) for screens under 768px
+- **Mobile Font Size** — Override font size on mobile only (0 = inherit from desktop setting)
+- **Mobile Padding** — Override bar padding on mobile only (0 = inherit from desktop setting)
 
 ### 📱 Responsive & Lightweight
 
@@ -336,6 +347,26 @@ Absolutely. The plugin is fully responsive and touch-friendly on all devices.
 
 ---
 
+## 📋 Changelog
+
+### v1.1.0
+
+- **New:** Text Alignment control (left / center / right) per bar
+- **New:** Font Weight control (normal / medium / semi-bold / bold)
+- **New:** Button Text Color — independent picker from button background
+- **New:** Button Padding — separate vertical and horizontal controls
+- **New:** Button Border Radius — square to pill-shaped buttons
+- **New:** Responsive Settings section — Mobile Layout (auto / row / column)
+- **New:** Mobile Font Size override per bar
+- **New:** Mobile Padding override per bar
+- **Improvement:** Button color and text color use CSS custom properties
+- **Improvement:** Text alignment and font weight driven by CSS variables
+- **DB:** 9 new columns added to `gabc_notices` table (auto-migrated via `dbDelta`)
+
+### v1.0.0
+
+- Initial release
+
 ## 📄 License
 
 **GPL v2 or later** — [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
@@ -344,7 +375,7 @@ Absolutely. The plugin is fully responsive and touch-friendly on all devices.
 
 ## 👨‍💻 Author
 
-**Smart Dev Team**
+**GridXFlex**
 
 - Website: [https://gridxflex.com](https://gridxflex.com)
 
@@ -354,7 +385,6 @@ Absolutely. The plugin is fully responsive and touch-friendly on all devices.
 
 - Built with ❤️ using **WordPress**
 - Follows WordPress coding standards and best practices
-- Inspired by the Product Carousel Slider plugin architecture
 
 ---
 

@@ -1,6 +1,6 @@
 /**
  * Gridxflex Announcement Bars with CTA — Admin Styles
- * v1.0.0 
+ * v1.1.0
  */
 
 :root {
@@ -1174,4 +1174,17 @@ input[type="checkbox"] {
   font-size: 14px;
   font-weight: 600;
   color: var(--gabc-text);
+}
+/* ─── v1.1.0: Two-input row helper ──────────────────────────────────────── */
+.gabc-two-inputs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.gabc-two-inputs .gabc-input-unit-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
